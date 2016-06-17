@@ -9,31 +9,22 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Command extends SymfonyCommand {
 
-  protected $default_path;
-  protected $gh_url;
+  const DEFAULT_PATH = "/.ssh/authorized_keys";
+  const DEFAULT_HOSTNAME = "https://api.github.com";
 
   public function __construct()
   {
-    $this->defualt_path = "/.ssh/authorized_keys";
-    $this->gh_url = "https://api.github.com";
-
     parent::__construct();
   }
 
   public static function getKeysFile()
   {
-    return getenv('HOME'). $this->default_path;
+    return getenv('HOME').self::DEFAULT_PATH;
   }
 
   protected function getKeysCount()
   {
-    $count = 0;
-    $fh = fopen(self::getKeysFile(), 'r');
-    if($fh) {
-      while(($buffer = fgets($fh, 2)) !== false){
-        $count++;
-      }
-    }
-    return $count;
+    $count = file(self::getKeysFile());
+    return count($count);
   }
 }
