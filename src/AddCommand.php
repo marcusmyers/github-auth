@@ -21,7 +21,7 @@ class AddCommand extends Command {
     $response = (new Client)->get(self::DEFAULT_HOSTNAME.'/users/'.$input->getArgument('user').'/keys');
 
     $this->write_to_file(json_decode($response->getBody()), self::getKeysFile(), $input->getArgument('user'));
-    $output->writeln("<info>Successfully added ".$input->getArgument('user')." to authorized keys</info>");
+    $output->writeln("<info>Successfully added ".$input->getArgument('user')." to your authorized keys file</info>");
   }
 
   private function write_to_file($keys, $file, $user)
@@ -31,10 +31,11 @@ class AddCommand extends Command {
     }
     $fh = fopen($file, 'a');
     foreach($keys as $key) {
-      $gh = $key->key . " " . $user;
+      $gh = $key->key . " " . $user . "\n";
       if(!fwrite($fh, $gh)) {
         throw new RuntimeException("Not able to write to the file.");
       }
     }
+    fclose($fh);
   }
 }
