@@ -10,11 +10,12 @@ needed something like it.
 **github-auth** allows you to quickly pair with anyone who has a GitHub
 account
 by adding and removing their public ssh keys from your
-[`authorized_keys`](http://en.wikipedia.org/wiki/Ssh-agent) file.## Pairing with strangers has never been so good.
-
-**github-auth** allows you to quickly pair with anyone who has a GitHub account
-by adding and removing their public ssh keys from your
 [`authorized_keys`](http://en.wikipedia.org/wiki/Ssh-agent) file.
+
+## Install
+`composer global require "marcusmyers/github-auth=~1.0.0"`
+
+Make sure to place the ~/.composer/vendor/bin directory in your `PATH` so the `gh-auth` executable is found when you run the `gh-auth` command in your terminal.
 
 ## Ussage
 
